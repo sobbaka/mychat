@@ -7,9 +7,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('users/', include('accounts.urls')),
     path('api/chat/', include('chat.api.urls')),
     path('api/account/', include('accounts.api.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:

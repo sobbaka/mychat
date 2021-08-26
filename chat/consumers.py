@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from chat.models import ChatRoom, Message
+from accounts.models import CustomUser
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -52,10 +53,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # Leave room group
+        # self.user = self.scope["user"]
+
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
+
+
+        @database_sync_to_async
+        def chat_get(room_group_name):
+            return ChatRoom.objects.get(name=room_group_name)
+
+        # self.chat_object = chat_get(self.room_group_name)
+
+        @database_sync_to_async
+        def delete_user_from_chat(chat, user):
+            chat.users.remove(user)
+
+        await delete_user_from_chat(self.chat_object, self.user)
+
 
         await self.channel_layer.group_send(
             self.room_group_name,

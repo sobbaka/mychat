@@ -13,6 +13,8 @@
         <p>Image:</p>
         <img src="{{ user.image.url }}" alt=""><br>
     {% endif %}
+    {% if user.id == request.user.id %}
     <a href="{{ user.user_update }}">Edit</a>
+    {% endif %}
 </body>
 </html>

@@ -21,10 +21,10 @@
 
     {{ room_name|json_script:"room-name" }}
     {{ user.username|json_script:"username" }}
-    <div id="messages">{{ messages }}</div>
-{#    {{ messages|json_script:"messages" }}#}
+
 
     <script>
+
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new WebSocket(
@@ -35,8 +35,7 @@
             + '/'
         );
 
-        const messages = JSON.parse(document.getElementById('messages').textContent);
-        console.log(messages)
+        const messages = {{ messages|safe }}
 
         for (i=0; i < messages.length; ++i){
             msg = messages[i]['fields']['body'];
@@ -45,12 +44,15 @@
             document.querySelector('#chat-log').value += (user + ': '+ msg +'\n')
         };
 
-
         // Вывод сообщения на странице
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             if (data.flag === 'NEW'){
-                document.querySelector('#usernames').insertAdjacentHTML('beforeend',`<p id="user_${data.user_id}">${data.username}</p>`)
+                let user = document.querySelector(`#user_${data.user_id}`)
+                if (!user) {
+                    document.querySelector('#usernames').insertAdjacentHTML('beforeend',
+                        `<p id="user_${data.user_id}"><a href="/users/${data.user_id}">${data.username}</a></p>`)
+                }
             } else if (data.flag === 'OFF'){
                 document.querySelector(`#user_${data.user_id}`).remove()
             }else{

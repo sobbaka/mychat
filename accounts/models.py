@@ -15,7 +15,7 @@ class CustomUserManager(models.Manager):
 
 class CustomUser(AbstractUser):
 
-    pass
+    # pass
     # add additional fields in here
     image = models.ImageField(verbose_name="Аватар", upload_to="covers/", null=True)
     # objects = CustomUserManager()

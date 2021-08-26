@@ -47,6 +47,5 @@ class Message(models.Model):
     def save(self, *args, **kwargs):
         self.body = self.body.strip()
         if self.id is None and self.not_websocket:
-            print('Step 1')
             self.sent_message()
         super(Message, self).save(*args, **kwargs)

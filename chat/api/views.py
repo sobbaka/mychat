@@ -30,8 +30,6 @@ def api_sent_message(request):
 	message = Message(not_websocket=True)
 
 	if request.method == 'POST':
-		print(request.data)
-		print(request.data['user'])
 		serializer = MessageSerializer(message, data=request.data)
 		data = {}
 		if serializer.is_valid():

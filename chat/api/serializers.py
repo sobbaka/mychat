@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from chat.models import Message
-from accounts.models import CustomUser
+from chat.models import Message, ChatRoom
+
 
 class MessageSerializer(serializers.ModelSerializer):
     # user = serializers.StringRelatedField(many=True)
@@ -20,3 +20,12 @@ class MessageSerializer(serializers.ModelSerializer):
     def get_user_username(self, obj):
         return obj.user.username
 
+
+class ChatRoomSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ChatRoom
+        fields = [
+            'name',
+            'users'
+        ]

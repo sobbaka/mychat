@@ -1,12 +1,18 @@
 from rest_framework import serializers
 from accounts.models import CustomUser
 
-class RegistrationSerializer(serializers.ModelSerializer):
 
-    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+# TODO password2 doesn`t work. Save mathod doesn`t work
+class RegistrationSerializer(serializers.ModelSerializer):
+    # password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = CustomUser
+        fields = ['email', 'username', 'password']
+        # fields = ['email', 'username', 'password', 'password2']
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 
         def save(self):
             account = CustomUser(
