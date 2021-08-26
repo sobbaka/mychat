@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+ <form action="{{ user.user_update }}" method="POST">
+     {% csrf_token %}
+     {{ form.non_field_errors }}
+     <div>
+         {{ form.username.errors }}
+         {{ form.username }}
+     </div>
+     <div>
+         {{ form.email.errors }}
+         {{ form.email }}
+     </div>
+     <div>
+         {% if  user.image  %}
+             <img src="{{ user.image.url }}" alt="" width="100px"><br>
+         {% endif %}
+         {{ form.image.errors }}
+         {{ form.image }}
+     </div>
+     <button type="submit" class="btn btn-primary mt-2">Save</button>
+
+ </form>
+
+</body>
+</html>
