@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
-</head>
-<body>
-
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    <br>
-
-
-    <div id="usernames">
-    {% for user in users %}
-
-        <p id="user_{{ user.id }}"><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></p>
-    {% endfor %}
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center;">Chat {{ room_name }}</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <div id="usernames">
+            <h3>User list</h3>
+                {% for user in users %}
+                <p id="user_{{ user.id }}"><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <textarea id="chat-log" cols="100" rows="20" class="form-control"></textarea><br>
+            <input id="chat-message-input" type="text" size="100" class="form-control"><br>
+            <input id="chat-message-submit" type="button" value="Send" class="btn btn-primary">
+        </div>
     </div>
 
     {{ room_name|json_script:"room-name" }}
@@ -84,5 +82,4 @@
         };
 
     </script>
-</body>
-</html>
+{% endblock %}

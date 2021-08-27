@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Rooms</title>
-</head>
-<body>
-    What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1 style="text-align: center;">What chat room would you like to enter?</h1>
+    <div class="container-sm"  style="width: 65%;">
+        <input id="room-name-input" type="text" size="100" class="form-control"><br>
+        <input class="btn btn-primary" type="submit" value="Enter" id="room-name-submit" >
+
+    </div>
+
+{#    <div class="container mt-2">#}
+{#    <h3>Available chats</h3>#}
+{#    {% for room in chatrooms %}#}
+{#        <a href="{{ room.get_absolute_url }}">Chatname "{{ room.name }}"</a><br>#}
+{#    {% endfor %}#}
+{#    </div>#}
+
 
     <script>
         document.querySelector('#room-name-input').focus();
         document.querySelector('#room-name-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
+            if (e.keyCode === 13) {
                 document.querySelector('#room-name-submit').click();
             }
         };
@@ -22,5 +29,4 @@
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>
-</body>
-</html>
+{% endblock %}

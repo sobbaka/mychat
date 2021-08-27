@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
@@ -14,6 +15,9 @@ class ChatRoom(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.id}'
+
+    # def get_absolute_url(self):
+    #     return reverse('room_detail', kwargs={"room_name": self.id})
 
 
 class Message(models.Model):
