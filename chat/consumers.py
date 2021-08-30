@@ -2,7 +2,6 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from chat.models import ChatRoom, Message
-from accounts.models import CustomUser
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -11,13 +10,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = 'chat_%s' % self.room_name
         self.user = self.scope["user"]
 
+        print(f'self.room_name is ***{self.room_name }***')
+
         @database_sync_to_async
-        def chat_get_or_create(room_group_name):
+        def chat_get_or_create(room_name):
             return ChatRoom.objects.get_or_create(
-                name=room_group_name
+                id=room_name
             )[0]
 
-        self.chat_object = await chat_get_or_create(self.room_group_name)
+        self.chat_object = await chat_get_or_create(self.room_name)
 
         @database_sync_to_async
         def add_user_to_chat(chat, user):
@@ -52,20 +53,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             })
 
     async def disconnect(self, close_code):
-        # Leave room group
-        # self.user = self.scope["user"]
 
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
-
-
-        @database_sync_to_async
-        def chat_get(room_group_name):
-            return ChatRoom.objects.get(name=room_group_name)
-
-        # self.chat_object = chat_get(self.room_group_name)
 
         @database_sync_to_async
         def delete_user_from_chat(chat, user):
@@ -92,10 +84,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # save message
         @database_sync_to_async
         def save_message_from_websocket(user, chatroom, body):
-            chatroom = ChatRoom.objects.get(name=chatroom)
+            chatroom = ChatRoom.objects.get(pk=chatroom)
             return Message.objects.create(user=user, chatroom=chatroom, body=body, not_websocket = False)
 
-        self.message_object = await save_message_from_websocket(self.user, self.room_group_name, message)
+        self.message_object = await save_message_from_websocket(self.user, self.room_name, message)
 
         # Send message to room group
         await self.channel_layer.group_send(

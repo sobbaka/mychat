@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from accounts.api.serializers import UserInfoSerializer
 from chat.models import Message, ChatRoom
 
 
@@ -22,6 +24,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class ChatRoomSerializer(serializers.ModelSerializer):
+    users = UserInfoSerializer(many=True, read_only=False)
 
     class Meta:
         model = ChatRoom

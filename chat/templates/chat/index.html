@@ -2,31 +2,24 @@
 {% block content %}
 
     <h1 style="text-align: center;">What chat room would you like to enter?</h1>
-    <div class="container-sm"  style="width: 65%;">
-        <input id="room-name-input" type="text" size="100" class="form-control"><br>
-        <input class="btn btn-primary" type="submit" value="Enter" id="room-name-submit" >
-
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <input type="text" size="100" class="form-control" name="name">
+                <input type="submit" value="Submit" class="btn btn-primary mt-2">
+            </form>
+                <div class="container mt-2">
+        <h3>Available chats</h3>
+        {% for room in chatrooms %}
+            <a href="{{ room.get_absolute_url }}">Chatname "{{ room.name }}"</a><br>
+        {% empty %}
+            <h4>There are no chats yet...</h4>
+        {% endfor %}
+    </div>
+        </div>
+        <div class="col-md-3"></div>
     </div>
 
-{#    <div class="container mt-2">#}
-{#    <h3>Available chats</h3>#}
-{#    {% for room in chatrooms %}#}
-{#        <a href="{{ room.get_absolute_url }}">Chatname "{{ room.name }}"</a><br>#}
-{#    {% endfor %}#}
-{#    </div>#}
-
-
-    <script>
-        document.querySelector('#room-name-input').focus();
-        document.querySelector('#room-name-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {
-                document.querySelector('#room-name-submit').click();
-            }
-        };
-
-        document.querySelector('#room-name-submit').onclick = function(e) {
-            var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
-        };
-    </script>
 {% endblock %}
