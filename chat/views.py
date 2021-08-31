@@ -34,9 +34,6 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 def room(request, pk):
     chat = get_object_or_404(ChatRoom, pk=pk)
-    if not chat:
-        print('no chat!')
-        return HttpResponse('Page does not exist!')
 
     try:
         users = ChatRoom.objects.get(id=pk).users.all()

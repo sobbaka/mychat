@@ -15,10 +15,8 @@ class CustomUserManager(models.Manager):
 
 class CustomUser(AbstractUser):
 
-    # pass
-    # add additional fields in here
     image = models.ImageField(verbose_name="Аватар", upload_to="covers/", null=True)
-    # objects = CustomUserManager()
+
 
     def natural_key(self):
         return self.username

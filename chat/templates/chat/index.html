@@ -8,9 +8,12 @@
             <form action="{% url 'index' %}" method="post">
                 {% csrf_token %}
                 <input type="text" size="100" class="form-control" name="name">
-                <input type="submit" value="Submit" class="btn btn-primary mt-2">
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Submit" class="btn btn-primary mt-2">
+                </div>
+
             </form>
-                <div class="container mt-2">
+                <div class="text-center mt-2">
         <h3>Available chats</h3>
         {% for room in chatrooms %}
             <a href="{{ room.get_absolute_url }}">Chatname "{{ room.name }}"</a><br>
