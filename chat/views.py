@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from chat.models import ChatRoom, Message
 from chat.forms import ChatRoomForm
 
+def error_404(request, exception=None):
+    return render(request, 'chat/error_404.html', status=404)
 
 @login_required(login_url='/accounts/login/')
 def index(request):

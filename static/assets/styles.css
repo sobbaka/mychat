@@ -1,0 +1,26 @@
+
+.indent {
+    text-indent: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.card-info {
+    max-width: 260px;
+    margin: 0 auto;
+}
+
+.lobby-wrapper{
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.lobby-chatlist{
+    max-width: 350px;
+    margin: 0 auto;
+    padding-left: 12px;
+}
+
+.allauth-input{
+    max-width: 400px;
+}

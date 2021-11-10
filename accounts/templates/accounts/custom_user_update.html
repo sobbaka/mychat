@@ -1,33 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-
- <form action="{{ user.user_update }}" method="POST">
-     {% csrf_token %}
-     {{ form.non_field_errors }}
-     <div>
-         {{ form.username.errors }}
-         {{ form.username }}
-     </div>
-     <div>
-         {{ form.email.errors }}
-         {{ form.email }}
-     </div>
-     <div>
-         {% if  user.image  %}
-             <img src="{{ user.image.url }}" alt="" width="100px"><br>
-         {% endif %}
-         {{ form.image.errors }}
-         {{ form.image }}
-     </div>
-     <button type="submit" class="btn btn-primary mt-2">Save</button>
-
- </form>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <h2 class="text-center">Edit {{ user.username }} details</h2>
+    <div class="d-flex justify-content-center">
+        <div>
+            <form action="{{ user.user_update }}" method="POST" enctype='multipart/form-data'>
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div>
+                    {{ form.username.errors }}
+                    {{ form.username }}
+                </div>
+                <div>
+                    {{ form.email.errors }}
+                    {{ form.email }}
+                </div>
+                <div class="text-center">
+                    {% if  user.image %}
+                        <img src="{{ user.image.url }}" alt="" width="150px" class="mb-2"><br>
+                    {% endif %}
+                    {{ form.image.errors }}
+                    {{ form.image }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-2">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

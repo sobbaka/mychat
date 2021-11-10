@@ -1,28 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
-    <h1 style="text-align: center;">What chat room would you like to enter?</h1>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <form action="{% url 'index' %}" method="post">
+    <div class="lobby-wrapper">
+        <h1 class="text-center">Chat lobby</h1>
+    <p class="lobby-text text-center">Create new chat for you and your friends...</p>
+                <form action="{% url 'index' %}" method="post">
                 {% csrf_token %}
                 <input type="text" size="100" class="form-control" name="name">
                 <div class="d-flex justify-content-center">
-                    <input type="submit" value="Submit" class="btn btn-primary mt-2">
+                    <input type="submit" value="Create chat" class="btn btn-primary mt-2">
                 </div>
 
             </form>
                 <div class="text-center mt-2">
-        <h3>Available chats</h3>
-        {% for room in chatrooms %}
+        <h3 class="mt-5">Or choose one of the available chats</h3>
+                <div class="lobby-chatlist text-start">
+                            {% for room in chatrooms %}
             <a href="{{ room.get_absolute_url }}">Chatname "{{ room.name }}"</a><br>
         {% empty %}
             <h4>There are no chats yet...</h4>
         {% endfor %}
+                </div>
+
+
     </div>
-        </div>
-        <div class="col-md-3"></div>
     </div>
+
+
 
 {% endblock %}

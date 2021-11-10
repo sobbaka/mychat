@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-3"></div>
@@ -10,15 +12,16 @@
                     <div class="card-header">
                         <h2 class="card-title">{{ user.username }} DETAILS</h2>
                     </div>
+                    <div class="card-info">
+                    <p class="text-start">Name: <span class="indent">{{ user.username }}</span></p>
+                    <p class="text-start">Email: <span class="indent">{{ user.email }}</span></p>
+                    </div>
 
-                    <p class="card-text">Name: {{ user.username }}</p>
-                    <p class="card-text">Email: {{ user.email }}</p>
+
                     {% if  user.image %}
-                        <p class="card-text">Image:</p>
                         <img src="{{ user.image.url }}" alt=""><br>
                     {% endif %}
-                    {% if user.id == request.user.id %}
-                    {% endif %}
+
                 {% if request.user.id == user.id %}
                     <a href="{{ user.user_update }}" class="btn btn-primary mt-2">Edit</a>
                 {% endif %}

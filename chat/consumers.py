@@ -10,7 +10,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = 'chat_%s' % self.room_name
         self.user = self.scope["user"]
 
-        print(f'self.room_name is ***{self.room_name }***')
+        print(f'self.room_name is ***{self.room_name}***')
 
         @database_sync_to_async
         def chat_get_or_create(room_name):
@@ -35,6 +35,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
 
+        # Send message to all users that new user connected
         await self.channel_layer.group_send(
             self.room_group_name,
             {
@@ -43,6 +44,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'username': f'{self.user.username}'
             })
 
+        # Send info message to add user to userlist in sidebar
         await self.channel_layer.group_send(
             self.room_group_name,
             {

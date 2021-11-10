@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from accounts.api.serializers import UserInfoSerializer
 from chat.models import Message, ChatRoom
-
+from accounts.models import CustomUser
 
 class MessageSerializer(serializers.ModelSerializer):
     # user = serializers.StringRelatedField(many=True)
@@ -24,11 +24,11 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class ChatRoomSerializer(serializers.ModelSerializer):
-    users = UserInfoSerializer(many=True, read_only=False)
-
+    users = UserInfoSerializer(many=True, read_only=True)
     class Meta:
         model = ChatRoom
         fields = [
             'name',
+            'id',
             'users'
         ]
