@@ -13,9 +13,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '45.80.70.97', 'toolsab.ru', 'www.toolsab.ru']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'django.contrib.sites',
+    'daphne',
 ]
 
 SITE_ID = 1
@@ -107,17 +108,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ.get('DATABASE_NAME'),
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#         'USER': os.environ.get('DATABASE_USER'),
-#         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-#     }
-# }
-
 
 # Django all-auth settings
 AUTHENTICATION_BACKENDS = (
@@ -183,13 +173,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static/',
-]
+# STATICFILES_DIRS = [
+#    BASE_DIR / 'static/',
+#]
 
-# STATIC_DIR = BASE_DIR / 'static/'
+STATIC_DIR = BASE_DIR / 'static/'
 # STATIC_ROOT = BASE_DIR / 'static/'
-
+STATIC_ROOT = '/root/chatpj/mychat/mychat/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'

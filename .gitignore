@@ -1,5 +1,6 @@
 media/*
 venv
+mychatenv
 db.sqlite3
 */migrations/*
 !*/migrations/__init__.py
